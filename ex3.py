@@ -1,6 +1,5 @@
 # carnet_adresses.py
-# Exercice 3 — Carnet d’adresses minimal
-# Tout regroupé dans un seul fichier.
+
 
 class Contact:
     def __init__(self, nom: str, telephone: str, email: str):
@@ -41,9 +40,7 @@ class Carnet:
         return len(self._contacts)
 
 
-# --------------------------------------------------------
-# Script de démonstration — exécuté si on lance le fichier
-# --------------------------------------------------------
+
 if __name__ == "__main__":
     c = Carnet()
     c.ajouter(Contact("Amina Saidi", "0612345678", "amina@example.com"))
