@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
+
 # inventaire.py
-# Contient la classe Article et un script de test (tout dans un seul fichier).
-#
-# Remarque : tu as aussi un fichier uploadé dans le conteneur (chemin local) :
-# "/mnt/data/WhatsApp Image 2025-11-21 at 23.01.44_effa1aef.jpg"
-# (utile si tu veux afficher ou attacher cette image dans un futur script)
+
 
 from datetime import datetime
 from typing import List
@@ -48,7 +44,7 @@ class Article:
         timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
         log_line = f"{timestamp} - Approvisionnement - Réf {self.reference} - +{qte} - {ancien_stock} -> {nouvel_stock}\n"
 
-        # Écriture atomique basique : ouverture en mode append
+        
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(log_line)
 
@@ -59,35 +55,33 @@ def valeur_inventaire(articles: List[Article]) -> float:
     return sum(a.valeur_stock() for a in articles)
 
 def main():
-    # Instanciation de trois articles
+    
     a1 = Article("A100", "Stylo bille", 1.20, 50)
     a2 = Article("B200", "Cahier A4 80p", 2.50, 30)
     a3 = Article("C300", "Trousse", 5.75, 10)
 
     articles = [a1, a2, a3]
 
-    # Afficher chaque article
+    
     print("Liste des articles :")
     for a in articles:
         print(a)
 
-    # Calculer la valeur totale de l'inventaire
     total = valeur_inventaire(articles)
     print(f"\nValeur d'inventaire : {total:.2f} €")
 
-    # Exemple d'utilisation de approvisionner() et journalisation
     print("\nApprovisionnement : +20 sur A100")
     try:
-        a1.approvisionner(20)  # écrit dans mouvements.log
+        a1.approvisionner(20) 
     except Exception as e:
         print("Erreur lors de l'approvisionnement :", e)
-    print(a1)  # affichera le nouveau stock
+    print(a1)  
 
-    # Ré-afficher la nouvelle valeur totale
+   
     total_apres = valeur_inventaire(articles)
     print(f"\nValeur d'inventaire après approvisionnement : {total_apres:.2f} €")
 
-    # Afficher un extrait du log (les 5 dernières lignes si le fichier existe)
+    
     try:
         with open(LOG_FILE, "r", encoding="utf-8") as f:
             lines = f.readlines()
